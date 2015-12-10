@@ -29,7 +29,7 @@ module.exports = (ctx, done) => {
 	var required_settings = ['AUTH0_DOMAIN', 'AUTH0_GLOBAL_CLIENT_ID', 'AUTH0_GLOBAL_CLIENT_SECRET', 'STORAGE_ACCOUNT_NAME', 'STORAGE_ACCOUNT_KEY', 'STORAGE_CONTAINER_NAME'];
 	var missing_settings = required_settings.filter((setting) => !ctx.data[setting]);
 	if (missing_settings.length) {
-		return done({ message: 'Missing settings: ' + missing.join(', ') });
+		return done({ message: 'Missing settings: ' + missing_settings.join(', ') });
 	}
 
 	// If this is a scheduled task, we'll get the last log checkpoint from the previous run and continue from there.
