@@ -1,6 +1,6 @@
 # Auth0 - Logs to Azure Blob Storage
 
-A webtask that will take all of your Auth0 logs and export them to Azure Blob Storage.
+A webtask that will take all of your Auth0 logs and export them to Azure Blob Storage. This can then for example be used to [transfer your logs to Power BI](http://fabriccontroller.net/connecting-auth0-to-power-bi-with-stream-analytics-and-a-webtask/).
 
 ## Configure Azure Blob Storage
 
@@ -24,12 +24,12 @@ If you just want to run it once:
 ```
 wt create https://raw.githubusercontent.com/sandrinodimattia/auth0-logs-to-blob-storage-webtask/master/task.js \
     --name auth0-logs-to-blob-storage \
-    --secret AUTH0_DOMAIN={YOUR_AUTH0_DOMAIN} \
-    --secret AUTH0_GLOBAL_CLIENT_ID={YOUR_AUTH0_GLOBAL_CLIENT_ID} \
-    --secret AUTH0_GLOBAL_CLIENT_SECRET={YOUR_AUTH0_GLOBAL_CLIENT_SECRET} \
-    --secret STORAGE_ACCOUNT_NAME={YOUR_STORAGE_ACCOUNT_NAME} \
-    --secret STORAGE_ACCOUNT_KEY={YOUR_STORAGE_ACCOUNT_KEY} \
-    --secret STORAGE_CONTAINER_NAME={YOUR_STORAGE_CONTAINER_NAME}
+    --secret AUTH0_DOMAIN="YOUR_AUTH0_DOMAIN" \
+    --secret AUTH0_GLOBAL_CLIENT_ID="YOUR_AUTH0_GLOBAL_CLIENT_ID" \
+    --secret AUTH0_GLOBAL_CLIENT_SECRET="YOUR_AUTH0_GLOBAL_CLIENT_SECRET" \
+    --secret STORAGE_ACCOUNT_NAME="YOUR_STORAGE_ACCOUNT_NAME" \
+    --secret STORAGE_ACCOUNT_KEY="YOUR_STORAGE_ACCOUNT_KEY" \
+    --secret STORAGE_CONTAINER_NAME="YOUR_STORAGE_CONTAINER_NAME"
 ```
 
 If you want to run it on a schedule (run every 5 minutes for example):
@@ -37,12 +37,12 @@ If you want to run it on a schedule (run every 5 minutes for example):
 ```
 wt cron schedule \
     --name auth0-logs-to-blob-storage \
-    --secret AUTH0_DOMAIN={YOUR_AUTH0_DOMAIN} \
-    --secret AUTH0_GLOBAL_CLIENT_ID={YOUR_AUTH0_GLOBAL_CLIENT_ID} \
-    --secret AUTH0_GLOBAL_CLIENT_SECRET={YOUR_AUTH0_GLOBAL_CLIENT_SECRET} \
-    --secret STORAGE_ACCOUNT_NAME={YOUR_STORAGE_ACCOUNT_NAME} \
-    --secret STORAGE_ACCOUNT_KEY={YOUR_STORAGE_ACCOUNT_KEY} \
-    --secret STORAGE_CONTAINER_NAME={YOUR_STORAGE_CONTAINER_NAME} \
+    --secret AUTH0_DOMAIN="YOUR_AUTH0_DOMAIN" \
+    --secret AUTH0_GLOBAL_CLIENT_ID="YOUR_AUTH0_GLOBAL_CLIENT_ID" \
+    --secret AUTH0_GLOBAL_CLIENT_SECRET="YOUR_AUTH0_GLOBAL_CLIENT_SECRET" \
+    --secret STORAGE_ACCOUNT_NAME="YOUR_STORAGE_ACCOUNT_NAME" \
+    --secret STORAGE_ACCOUNT_KEY="YOUR_STORAGE_ACCOUNT_KEY" \
+    --secret STORAGE_CONTAINER_NAME="YOUR_STORAGE_CONTAINER_NAME" \
     --json \
     "*/5 * * * *" \
     https://raw.githubusercontent.com/sandrinodimattia/auth0-logs-to-blob-storage-webtask/master/task.js

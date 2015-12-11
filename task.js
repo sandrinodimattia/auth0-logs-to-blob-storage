@@ -1,23 +1,23 @@
 "use latest";
 
 const Auth0 = require('auth0@0.8.2');
+const async   = require('async');
 const moment = require('moment');
 const azure = require('azure-storage');
 const useragent = require('useragent');
-const waterfall   = require('async').waterfall;
 
 const getCheckpointId = (history) => {
   if (history && history.length > 0) {
     console.log('Trying to get last checkpointId from previous run.');
 
-    for (var i = 0; i < history.length; i++) {
-      console.log (` > Run: ${history[i].started_at} - ${history[i].type}`);
+    for (let i = 0; i < history.length; i++) {
+      console.log (`Run: ${history[i].started_at} - ${history[i].type}`);
 
       if (history[i].statusCode === 200 && history[i].body){
-        var result = JSON.parse(history[i].body);
+        let result = JSON.parse(history[i].body);
         if (result && result.checkpointId) {
 
-          console.log (` > This is the last one we want to continue from: ${result.checkpointId}`);
+          console.log (`This is the last one we want to continue from: ${result.checkpointId}`);
           return result.checkpointId;
         }
       }
@@ -26,8 +26,8 @@ const getCheckpointId = (history) => {
 }
 
 module.exports = (ctx, done) => {
-  var required_settings = ['AUTH0_DOMAIN', 'AUTH0_GLOBAL_CLIENT_ID', 'AUTH0_GLOBAL_CLIENT_SECRET', 'STORAGE_ACCOUNT_NAME', 'STORAGE_ACCOUNT_KEY', 'STORAGE_CONTAINER_NAME'];
-  var missing_settings = required_settings.filter((setting) => !ctx.data[setting]);
+  let required_settings = ['AUTH0_DOMAIN', 'AUTH0_GLOBAL_CLIENT_ID', 'AUTH0_GLOBAL_CLIENT_SECRET', 'STORAGE_ACCOUNT_NAME', 'STORAGE_ACCOUNT_KEY', 'STORAGE_CONTAINER_NAME'];
+  let missing_settings = required_settings.filter((setting) => !ctx.data[setting]);
   if (missing_settings.length) {
     return done({ message: 'Missing settings: ' + missing_settings.join(', ') });
   }
@@ -85,14 +85,14 @@ module.exports = (ctx, done) => {
     },
     (context, callback) => {
       context.logs = context.logs.map((record) => {
-        var level = 0;
+        let level = 0;
         record.type_code = record.type;
         if (logTypes[record.type]) {
           level = logTypes[record.type].level;
           record.type = logTypes[record.type].event;
         }
 
-        var agent = useragent.parse(record.user_agent);
+        let agent = useragent.parse(record.user_agent);
         record.os = agent.os.toString();
         record.os_version = agent.os.toVersion();
         record.device = agent.device.toString();
